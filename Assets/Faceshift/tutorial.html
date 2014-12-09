@@ -1,0 +1,139 @@
+<h1>Unity Plugin Tutorial</h1>
+
+<h2>Version 1.1</h2>
+<p>Create stunning animations with motion capture at your desk thanks to faceshift,
+a markerless mocap system which uses a depth camera to capture an actor's
+expressions. Using a FACS-based face model, faceshift estimates the actor's 
+facial muscle activations.</p>
+
+<p>The faceshift for unity plugin takes (previously tracked) clips
+and lets you map them onto arbitrary blendshape-based rigs. The
+package contains example scenes and tutorials to get you started, and
+you can <a href="http://www.faceshift.com/get-trial/">use the faceshift studio trial</a>
+to generate your own motion capture sequences.</p>
+
+<h2>Installation</h2>
+<p>The faceshift plugin is located in the Unity Asset Store under the
+category "Editor Extension &gt; Animation". Download and
+import the plugin from the Asset store. The package content should be
+displayed in the bottom left panel, together with the other assets.</p>
+<p><img src="http://cdn.freshdesk.com/data/helpdesk/attachments/production/13218129/original/screenshot-main-open.png?1384851119" class="inline-image" data-id="13218129" style="cursor: default; height: 838px;" data-height="838"></p>
+
+<h2>Setting up the scene</h2>
+<p>The faceshift plugin provides an example scene containing a model, a
+spotlight, and a camera. Load the example scene by double-clicking the
+"Macaw" icon in "Examples &gt; Scenes". You should now see the macaw
+character in the scene, as well as the spotlight and the camera objects.</p>
+<p><img src="http://cdn.freshdesk.com/data/helpdesk/attachments/production/13218140/original/screenshot-scene.png?1384851133" class="inline-image" data-id="13218140" style="cursor: default;"></p>
+
+<h2>Get the GUI</h2>
+<p>Select the macaw model in the Hierarchy panel on the left of the interface.
+From here, go to "Faceshift &gt; Scripts" and drag the
+"faceshift" script onto the Inspector panel on the right to
+add the faceshift component. The faceshift user interface is now
+loaded and you can start using it.</p>
+<p><img src="http://cdn.freshdesk.com/data/helpdesk/attachments/production/13218164/original/screenshot-plugin-ui.png?1384851153" class="inline-image" data-id="13218164" style="cursor: default;"></p>
+
+<h2>Loading the clip</h2>
+<p>The assumption here is that you have already created a clip
+using faceshift studio. Should this sound new to you,
+please refer to our <a href="http://support.faceshift.com/support/solutions/folders/198189">tutorials page</a>
+and learn how to create and export an animation with faceshift studio.</p>
+<p>The "Examples" folder contains a sample clip file that you can
+use for testing.</p>
+<p>Click on the "Load fsb (faceshift clip)" button and select the
+clip you want to load.</p>
+
+<h2>Retargeting</h2>
+<p>The retargeting step allows you to create the mapping between the faceshift
+animation and your Unity character. In order to do so, you have the
+possibility to map blendshapes as well as translation and rotation
+joints. Use the corresponding "Add translation mapping",
+"Add rotation mapping", and "Add blend shape mapping"
+buttons to define all the mappings you need.</p>
+<p>The "Examples" folder contains a sample retargeting file
+("macaw-retargeting.fst") that you can directly load using
+the "Load retargeting" button to see how it is done for
+this macaw model. You can play with the coefficients to change the
+relation between corresponding blendshapes and see how it would alter
+the animation output.</p>
+<p><img src="http://cdn.freshdesk.com/data/helpdesk/attachments/production/13218171/original/screenshot-blendshapes.png?1384851165" class="inline-image" data-id="13218171" style="cursor: default;"></p>
+
+<h2>Create the Animation</h2>
+<p>As soon as you completed the retargeting part, you are ready to animate
+your character.</p>
+<p>Select the "Attach as .anim to object" button and give a name to
+your new animation file. The file will be stored as an ".anim"
+file in your Assets directory.</p>
+
+<h3><u>Important:</u></h3>
+<p>to make sure this works correctly when you use your own scene, do the
+following in Unity3D:</p>
+<ol>
+  <li>In the "project" window in the Assets hierarchy, click on your fbx model</li>
+  <li>In the inspector, you should see now the Import Settings of your model</li>
+  <li>In the "Rig" tab for the "Animation Type" the value "Legacy"</li>
+</ol>
+<p><img src="http://cdn.freshdesk.com/data/helpdesk/attachments/production/13218212/original/screenshot-animation.png?1384851178" class="inline-image" data-id="13218212" style="cursor: default;"></p>
+<p>You can now hit the "play" button to enter the Game mode of Unity and see
+your character being animated.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p><p><p><img src="http://cdn.freshdesk.com/data/helpdesk/attachments/production/13218236/original/screenshot-play.png?1384851187" class="inline-image" data-id="13218236" style="cursor: default;"></p><br></p>
+
