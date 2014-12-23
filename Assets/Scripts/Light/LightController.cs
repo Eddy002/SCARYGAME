@@ -10,11 +10,10 @@ public class LightController : MonoBehaviour {
 	public float happyIntensity;
 
 	GameObject faceController;
-
-	Light light;
-	Gradient g = new Gradient();
-	public ScriptableObject script;
 	fs.FaceshiftLive face;
+
+	Light lightRef;
+	Gradient g = new Gradient();
 	
 	// Use this for initialization
 	void Start () {
@@ -33,23 +32,11 @@ public class LightController : MonoBehaviour {
 		
 		g.SetKeys(gck, gak);
 		
-		light = GetComponent<Light> ();
+		lightRef = GetComponent<Light> ();
 	}
-	
-	// Update is called once per frame
+
 	void Update () {
-		//face.getHappiness(
-
-
-		// bierzesz od -1 do 1
-		// powinno byc a = happyDetectionController.getHappinessFrom0to1
-		/*float a = -0.5f; // W TYM MIEJSCU WSTAWIC
-
-		a += 1f; // przesuniecie zakresu proporcji
-		a *= 50; // bardzo skrocona proporcja matematyczna dla 100% = 2
-		a = 1f * a / 100; // ostateczny wynik z przedzialu <0, 1>
-*/
 		if(face.getHappiness() != -1)
-			light.color = g.Evaluate (face.getHappiness());
+			lightRef.color = g.Evaluate (face.getHappiness());
 	}
 }

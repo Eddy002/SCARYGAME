@@ -3,22 +3,25 @@ using System.Collections;
 
 public class EnemyHealthAndAttack : MonoBehaviour {
 
-	public float timeBetweenAttacks = 1.0f;
+	public float timeBetweenAttacks = 0.1f;
 	public int attackDamage = 4;
-	public float happinessFrom = 0.5f;
-	public float happinessTo = 1f;
+	float happinessFrom = 0.1f;
+	float happinessTo = 1f;
 	public int startingHealth = 100;
 	public int currentHealth;
-	public float sinkSpeed = 2.5f;
-	public int scoreValue = 10;
+	public float sinkSpeed = 4.5f;
+	int scoreValue = 20;
 	public AudioClip deathClip;
-	
+	public bool isAgressive;
+
 	Animator anim;
 	GameObject player;
 	PlayerHealth playerHealth;
-	EnemyHealth enemyHealth;
 	bool playerInRange;
-	float timer;
+	float timer = 0f;
+	float distanceToPlayer;
+
+	public PlayerMana mana; 
 
 	AudioSource enemyAudio;
 	ParticleSystem hitParticles;
@@ -30,16 +33,11 @@ public class EnemyHealthAndAttack : MonoBehaviour {
 	fs.FaceshiftLive face;
 
 
-	//HappyDetector blabla;
-	
-	
 	void Awake ()
 	{
 		player = GameObject.FindGameObjectWithTag ("Player");
 		playerHealth = player.GetComponent <PlayerHealth> ();
-		enemyHealth = GetComponent<EnemyHealth>();
 		anim = GetComponent <Animator> ();
-		//blabla = GameObject.FindGameObjectWithTag ("HappyDetector");
 
 		enemyAudio = GetComponent <AudioSource> ();
 		hitParticles = GetComponentInChildren <ParticleSystem> ();
@@ -49,8 +47,8 @@ public class EnemyHealthAndAttack : MonoBehaviour {
 
 		faceController = GameObject.Find ("FaceController");
 		face = faceController.GetComponent <fs.FaceshiftLive> ();
-	}
 
+	}
 
 	void OnTriggerEnter (Collider other)
 	{
@@ -59,8 +57,7 @@ public class EnemyHealthAndAttack : MonoBehaviour {
 			playerInRange = true;
 		}
 	}
-	
-	
+
 	void OnTriggerExit (Collider other)
 	{
 		if(other.gameObject == player)
@@ -69,40 +66,35 @@ public class EnemyHealthAndAttack : MonoBehaviour {
 		}
 	}
 	
-	// Update is called once per frame
-	void Update ()
-	{
-		if(isSinking)
-		{
+	protected bool paused;
+	void OnPauseGame () { paused = true; }
+	void OnResumeGame () { paused = false; }
+	
+	void Update () { if (!paused) {
+		if (isSinking) {
 			transform.Translate (-Vector3.up * sinkSpeed * Time.deltaTime);
 		}
 
-		//timer += Time.deltaTime;
-		if(/*timer >= timeBetweenAttacks &&*/ playerInRange && enemyHealth.currentHealth > 0)
+		timer += Time.deltaTime;
+		if (timer >= timeBetweenAttacks && playerInRange && currentHealth > 0) 
 		{
-			if(face.getHappiness() >=  happinessFrom && face.getHappiness() <= happinessTo)
+			if ((face.getHappiness () >= happinessFrom) && (face.getHappiness () <= happinessTo)) 
 			{
-				TakeDamage(9999);
-			}
-			else
+				TakeDamage (40);
+				timer = 0f;
+			} 
+			else 
 			{
-				Attack ();
+				if (playerHealth.currentHealth > 0) 
+				{
+					playerHealth.TakeDamage (attackDamage);
+				}
+				timer = 0f;
 			}
 		}
-	}
-	
-	
-	void Attack ()
-	{
-		timer = 0f;
-		
-		if(playerHealth.currentHealth > 0)
-		{
-			playerHealth.TakeDamage (attackDamage);
-		}
-	}
+	} }
 
-	public void TakeDamage (int amount/*, Vector3 hitPoint*/)
+	public void TakeDamage (int amount)
 	{
 		if(isDead)
 			return;
@@ -110,16 +102,15 @@ public class EnemyHealthAndAttack : MonoBehaviour {
 		enemyAudio.Play ();
 		
 		currentHealth -= amount;
-		
-		//hitParticles.transform.position = hitPoint;
-		//hitParticles.Play();
+
+		hitParticles.transform.position = this.transform.position;
+		hitParticles.Play();
 		
 		if(currentHealth <= 0)
 		{
 			Death ();
 		}
 	}
-	
 	
 	void Death ()
 	{

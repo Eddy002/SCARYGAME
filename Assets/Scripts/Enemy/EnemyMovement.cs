@@ -5,7 +5,7 @@ public class EnemyMovement : MonoBehaviour
 {
     Transform player;
     PlayerHealth playerHealth;
-    EnemyHealth enemyHealth;
+    EnemyHealthAndAttack enemyHealthAndAttack;
     NavMeshAgent nav;
 
 	float changeMoveTimer;
@@ -19,38 +19,40 @@ public class EnemyMovement : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag ("Player").transform;
         playerHealth = player.GetComponent <PlayerHealth> ();
-        enemyHealth = GetComponent <EnemyHealth> ();
+        enemyHealthAndAttack = GetComponent <EnemyHealthAndAttack> ();
         nav = GetComponent <NavMeshAgent> ();
 		trans = GetComponent<Transform> ();
     }
 
+	protected bool paused;
+	void OnPauseGame () { paused = true; }
+	
+	void OnResumeGame () { paused = false; }
+	
+	void Update () 
+	{
 
-    void Update ()
-    {
-		changeMoveTimer += Time.deltaTime;
+		if (!paused) {
+			changeMoveTimer += Time.deltaTime;
 
-        if(enemyHealth.currentHealth > 0 && playerHealth.currentHealth > 0)
-        {
-			if(changeMoveTimer >= timeBetweenChanges)
-			{
-				currentDestination = new Vector3(Random.Range(-20, 20), 1, Random.Range(-20,20));
-				nav.SetDestination (currentDestination);
-				timeBetweenChanges = Random.Range (2, 10);
-				changeMoveTimer = 0f;
+			if (enemyHealthAndAttack.currentHealth > 0 && playerHealth.currentHealth > 0) {
+				if (changeMoveTimer >= timeBetweenChanges) {
+					currentDestination = new Vector3 (Random.Range (-20, 20), 1, Random.Range (-20, 20));
+					nav.SetDestination (currentDestination);
+					timeBetweenChanges = Random.Range (2, 10);
+					changeMoveTimer = 0f;
+				}
+			} else {
+				nav.enabled = false;
 			}
-        }
-        else
-        {
-            nav.enabled = false;
-        }
 
-		// if destination has been reached find another one
-		// also to do is mechanism that somehow avoids obstacles 
-		// or force bunnies (or bears or whatever) from ocasional stuck 
-		float distance = Vector3.Distance (trans.position, currentDestination);
-		if (distance < 1f) {
-			timeBetweenChanges = 0f;
-
+			// if destination has been reached find another one
+			// also to do is mechanism that somehow avoids obstacles 
+			// or force bunnies (or bears or whatever) from ocasional stuck 
+			float distance = Vector3.Distance (trans.position, currentDestination);
+			if (distance < 1f) {
+				timeBetweenChanges = 0f;
+			}
 		}
 	}
 }

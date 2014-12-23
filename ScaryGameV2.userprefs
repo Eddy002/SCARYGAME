@@ -1,18 +1,20 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Enemy\EnemyHealthAndAttack.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Managers\ScoreManagerLevel.cs">
     <Files>
-      <File FileName="Assets\Scripts\Enemy\EnemyHealthAndAttack.cs" Line="7" Column="29" />
-      <File FileName="Assets\Scripts\Enemy\EnemyAttack.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Light\LightController.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Enemy\EnemyHealth.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Player\PlayerHealth.cs" Line="1" Column="1" />
-      <File FileName="Assets\Faceshift\Scripts\FaceshiftLive.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Enemy\EnemyHealthAndAttack.cs" Line="146" Column="1" />
+      <File FileName="Assets\Scripts\Managers\GameOverManager.cs" Line="25" Column="5" />
+      <File FileName="Assets\Scripts\Managers\ScoreManager.cs" Line="37" Column="16" />
+      <File FileName="Assets\Scripts\Managers\ScoreManagerLevel.cs" Line="20" Column="24" />
+      <File FileName="Assets\Scripts\Managers\WinTextManager.cs" Line="5" Column="28" />
+      <File FileName="Assets\Scripts\Managers\PauseManager.cs" Line="29" Column="12" />
+      <File FileName="Assets\Scripts\Managers\StartManager.cs" Line="46" Column="17" />
+      <File FileName="Assets\Scripts\Managers\EnemyManagerV2.cs" Line="40" Column="3" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
+    <BreakpointStore>
+      <Breakpoint file="C:\Users\korad_000\Documents\ScaryGameV2\ScaryGameV2\Assets\Scripts\Enemy\EnemyHealthAndAttack.cs" line="81" />
+    </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>

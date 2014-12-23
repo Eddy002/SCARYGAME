@@ -5,6 +5,7 @@ public class Crosshair : MonoBehaviour {
 
 	public Texture crosshairTexture;
 	Rect crosshairRect;
+
 	void Start () 
 	{
 		float crosshairSize = Screen.width * 0.05f;
@@ -12,10 +13,18 @@ public class Crosshair : MonoBehaviour {
 		                      Screen.height / 2 - crosshairSize / 2,
 		                      crosshairSize, crosshairSize);
 	}
-	
+
+
+	public bool paused;
+	void OnPauseGame () { paused = true; }
+	void OnResumeGame () { paused = false; }
+
 	void OnGUI()
 	{
-		GUI.DrawTexture (crosshairRect, crosshairTexture);
+		if(paused == false)
+		{
+			GUI.DrawTexture (crosshairRect, crosshairTexture);
+		}
 		Screen.showCursor = false;
 	}
 }

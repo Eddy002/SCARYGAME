@@ -30,7 +30,6 @@ public class MouseLook : MonoBehaviour {
 	GameObject faceController;
 	fs.FaceshiftLive face;
 	
-	
 	float rotationY = 0F;
 	
 	void Start ()
@@ -47,28 +46,33 @@ public class MouseLook : MonoBehaviour {
 	{
 		if (axes == RotationAxes.MouseXAndY)
 		{
-			float rotationX = transform.localEulerAngles.y + Mathf.Sin(face.getXHeadRotation() * Mathf.PI/2) * sensitivityX; //Input.GetAxis("Mouse X") * sensitivityX;
+			float rotationX = transform.localEulerAngles.y + Input.GetAxis("Mouse X") * sensitivityX;
 
-			// glowa gora dol getXHeadRotation
-			// Głowa -> Lefo-prawo getYHeadRotation
-
-
-
-			rotationY += Mathf.Sin(face.getYHeadRotation() * Mathf.PI/2) * sensitivityY; //Input.GetAxis("Mouse Y") * sensitivityY;
+			rotationY += Input.GetAxis("Mouse Y") * sensitivityY;
 			rotationY = Mathf.Clamp (rotationY, minimumY, maximumY);
 			
 			transform.localEulerAngles = new Vector3(-rotationY, rotationX, 0);
 		}
 		else if (axes == RotationAxes.MouseX)
 		{
-			transform.Rotate(0, Mathf.Sin(face.getXHeadRotation() * Mathf.PI/2) * sensitivityX /*Input.GetAxis("Mouse X") * sensitivityX */, 0);
+			transform.Rotate(0, Mathf.Sin(ParseHeadRotationX(face.getXHeadRotation()) * Mathf.PI/2) * sensitivityX /*Input.GetAxis("Mouse X") * sensitivityX */, 0);
 		}
 		else
 		{
-			rotationY += Mathf.Sin(face.getYHeadRotation() * Mathf.PI/2) * sensitivityY; //Input.GetAxis("Mouse Y") * sensitivityY;
+			rotationY += Input.GetAxis("Mouse Y") * sensitivityY;
 			rotationY = Mathf.Clamp (rotationY, minimumY, maximumY);
 			
 			transform.localEulerAngles = new Vector3(-rotationY, transform.localEulerAngles.y, 0);
 		}
+	}
+
+	private float ParseHeadRotationX(float rotation)
+	{
+		if (rotation > -0.025f && rotation < 0.025f)
+			return 0;
+		else if (rotation < 0f) 
+			return rotation + 0.012f;		
+		else 
+			return rotation - 0.012f;
 	}
 }
